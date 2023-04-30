@@ -6,16 +6,16 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
-
-async function main() {
-
+async function deployCreditTokens(){
   const creditTokens = await hre.ethers.getContractFactory("CreditTokens");
   const creditToken = await creditTokens.deploy();
 
   await creditToken.deployed();
 
   console.log(`CreditToken deployed to ${creditToken.address}`);
+}
 
+async function deployERC20Tokens(){
   const carbontokens = await hre.ethers.getContractFactory("CarbonTokensERC20");
 
   const cbio = await carbontokens.deploy("CBIO", "CBIO");
@@ -29,8 +29,26 @@ async function main() {
   const ets = await carbontokens.deploy("ETS", "ETS");
   await ets.deployed();
   console.log(`ETS deployed to ${ets.address}`);
-  
+}
 
+
+async function deployBRL(){
+  const brl = await hre.ethers.getContractFactory("CarbonTokensERC20");
+  const brlToken = await brl.deploy("Brazilian Real", "BRL");
+
+  await brlToken.deployed();
+
+  console.log(`BRL deployed to ${brlToken.address}`);
+}
+
+
+async function main() {
+  await deployCreditTokens();
+  await deployERC20Tokens();
+
+  await deployBRL();
+  
+  
 }
 
 // We recommend this pattern to be able to use async/await everywhere

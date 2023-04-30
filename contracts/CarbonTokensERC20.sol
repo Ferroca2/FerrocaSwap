@@ -8,7 +8,7 @@ contract CarbonTokensERC20 is ERC20, Ownable{
 
     constructor(string memory name, string memory ticker) ERC20(name, ticker) {
 
-        _mint(msg.sender, 5 ether);
+        _mint(msg.sender, 5000000 ether);
         
     }
 
