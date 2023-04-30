@@ -6,6 +6,7 @@ import { Col, Spinner, Dropdown } from 'react-bootstrap';
 import { getAll } from '../services/productData';
 import { BiSortDown, BiSort, BiDownArrowAlt, BiUpArrowAlt, BiSortUp } from 'react-icons/bi'
 import { useParams } from 'react-router-dom';
+import { firebaseDatabase } from '../utils/firebase';
 import '../components/Siders/SearchSider.css'
 import '../components/Categories/Categories.css';
 import '../components/ProductCard/ProductCard.css';
@@ -18,6 +19,12 @@ function Categories() {
     const [query, setQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [sort, setSort] = useState('oldest');
+
+    useEffect(() => {
+        const response = firebaseDatabase.ref('users/').set({ name: 'efedasd', email: 'sdasdas', uid: 'sdasdas' })
+        console.log(response)
+    }, [])
+
 
     useEffect(() => {
         setPage(1);
