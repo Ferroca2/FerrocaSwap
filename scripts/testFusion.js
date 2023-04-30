@@ -1,7 +1,10 @@
 
+const dotenv = require("dotenv");
+dotenv.config({ path: "../.env" });
 const fusion = require("@1inch/fusion-sdk");
+
 const { ethers } = require("ethers");
-const { Web3 } = require("web3")
+const { Web3 } = require("web3");
 
 const { FusionSDK, NetworkEnum, FusionOrder, AuctionSalt, AuctionSuffix, PrivateKeyProviderConnector } = fusion;
 
@@ -47,12 +50,16 @@ async function test1(){
 }
 
 async function test2(){
-    const makerPrivateKey = process.env.PRIVATE_KEY
+    const makerPrivateKey = process.env.PRIVATE_KEY;
+    console.log(makerPrivateKey)
     const makerAddress = "0xbA1B7FD1dAdD6000514b2Fc3156E8Ef2Ffd136bc"
 
-    const nodeUrl = `https://polygon-polygon.infura.io/v3/${process.env.INFURA_KEY}`;
+    const nodeUrl = `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_KEY}`;
 
-    const provider = new Web3(nodeUrl);
+    const provider = new PrivateKeyProviderConnector(
+        makerPrivateKey,
+        nodeUrl
+    );
 
     console.log(provider)
 
@@ -63,11 +70,12 @@ async function test2(){
     })
 
     sdk.placeOrder({
-        fromTokenAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
-        toTokenAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
-        amount: '50000000000000000', // 0.05 ETH
+        fromTokenAddress: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', // OLAF
+        toTokenAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', // PKT
+        amount: '1', // 0.05 ETH
         walletAddress: makerAddress
-    }).then(console.log);
+    }).then(console.log)
+    .catch(console.error);
 
 }
 
@@ -82,8 +90,15 @@ async function main() {
         network: NetworkEnum.POLYGON
     })
 
-    const orders = await sdk.getActiveOrders({page: 1, limit: 2});
-    console.log(orders)
+    //const orders = await sdk.getActiveOrders({page: 1, limit: 2});
+
+    const orders = await sdk.getOrdersByMaker({
+        page: 1,
+        limit: 10,
+        address: "0xbA1B7FD1dAdD6000514b2Fc3156E8Ef2Ffd136bc"
+
+    })
+    console.log(orders);
 }
 
 main()
