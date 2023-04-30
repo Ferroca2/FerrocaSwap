@@ -1,6 +1,7 @@
 
 const fusion = require("@1inch/fusion-sdk");
 const { ethers } = require("ethers");
+const { Web3 } = require("web3")
 
 const { FusionSDK, NetworkEnum, FusionOrder, AuctionSalt, AuctionSuffix, PrivateKeyProviderConnector } = fusion;
 
@@ -49,11 +50,11 @@ async function test2(){
     const makerPrivateKey = process.env.PRIVATE_KEY
     const makerAddress = "0xbA1B7FD1dAdD6000514b2Fc3156E8Ef2Ffd136bc"
 
-    const nodeUrl = `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_KEY}`;
+    const nodeUrl = `https://polygon-polygon.infura.io/v3/${process.env.INFURA_KEY}`;
 
-    const provider = new ethers.providers.JsonRpcProvider(nodeUrl);
+    const provider = new Web3(nodeUrl);
 
-    console.log(provider    )
+    console.log(provider)
 
     const sdk = new FusionSDK({
         url: 'https://fusion.1inch.io',
@@ -71,7 +72,8 @@ async function test2(){
 }
 
 async function main() {
-    await test1();
+    // await test1();
+    // await test2();
     await test2();
 
 
