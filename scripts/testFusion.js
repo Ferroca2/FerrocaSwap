@@ -70,9 +70,9 @@ async function test2(){
     })
 
     sdk.placeOrder({
-        fromTokenAddress: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', // OLAF
-        toTokenAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', // PKT
-        amount: '1', // 0.05 ETH
+        toTokenAddress: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', // OLAF
+        fromTokenAddress: '0xC7cc31Bba3fF09A0b4034754D4bD418B64ac7ecf', // PKT
+        amount: '2', // 0.05 ETH
         walletAddress: makerAddress
     }).then(console.log)
     .catch(console.error);

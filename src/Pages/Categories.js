@@ -19,6 +19,8 @@ function Categories() {
     const [loading, setLoading] = useState(true);
     const [sort, setSort] = useState('oldest');
 
+    console.log(products);
+
     useEffect(() => {
         setPage(1);
         setLoading(true);

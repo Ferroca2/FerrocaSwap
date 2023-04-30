@@ -11,6 +11,10 @@ function CategoriesNav() {
     return (
         <div className="container" id="categories">
             <h1>Categories</h1>
+
+            <Link to="/categories/credits">
+                <Button variant="dark" id="credits"><GiFlowerPot />Credits</Button>{' '}
+            </Link>
             <Link to="/categories/all">
                 <Button variant="dark" id="all"><TiSortAlphabetically />All</Button>{' '}
             </Link>
