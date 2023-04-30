@@ -15,6 +15,22 @@ async function main() {
   await creditToken.deployed();
 
   console.log(`CreditToken deployed to ${creditToken.address}`);
+
+  const carbontokens = await hre.ethers.getContractFactory("CarbonTokensERC20");
+
+  const cbio = await carbontokens.deploy("CBIO", "CBIO");
+  await cbio.deployed();
+  console.log(`CBIO deployed to ${cbio.address}`);
+
+  const lcfs = await carbontokens.deploy("LCFS", "LCFS");
+  await lcfs.deployed();
+  console.log(`LCFS deployed to ${lcfs.address}`);
+
+  const ets = await carbontokens.deploy("ETS", "ETS");
+  await ets.deployed();
+  console.log(`ETS deployed to ${ets.address}`);
+  
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere
