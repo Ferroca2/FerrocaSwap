@@ -22,10 +22,10 @@ function Categories() {
 
     console.log(products);
 
-    useEffect(() => {
-        const response = firebaseDatabase.ref('users/').set({ name: 'efedasd', email: 'sdasdas', uid: 'sdasdas' })
-        console.log(response)
-    }, [])
+    // useEffect(() => {
+    //     const response = firebaseDatabase.ref('users/').set({ name: 'efedasd', email: 'sdasdas', uid: 'sdasdas' })
+    //     console.log(response)
+    // }, [])
 
 
     useEffect(() => {
@@ -70,7 +70,7 @@ function Categories() {
             <div id="sider">
                 <input className="col-lg-6" type="text" placeholder="Search..." name="search" value={query} onChange={handleSearch} />
             </div>
-            <CategoriesNav />
+            
             <div className="container">
                 <Dropdown id="dropdown-sort">
                     <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -84,6 +84,7 @@ function Categories() {
                     </Dropdown.Menu>
                 </Dropdown>
                 {!loading ?
+                    
                     <InfiniteScroll
                         dataLength={products.length}
                         next={() => {

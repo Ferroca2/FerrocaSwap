@@ -44,9 +44,9 @@ async function deployBRL(){
 
 async function main() {
   await deployCreditTokens();
-  await deployERC20Tokens();
+  // await deployERC20Tokens();
 
-  await deployBRL();
+  // await deployBRL();
   
   
 }

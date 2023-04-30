@@ -1,27 +1,55 @@
-import { useContext } from 'react';
-import { Context } from '../../ContextStore';
-import { Navbar, NavDropdown, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useContext, useState } from "react";
+import { Navbar, Nav, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { BsFillPersonFill, BsFillEnvelopeFill, BsFillPlusCircleFill } from 'react-icons/bs';
-import { IoLogOut } from 'react-icons/io5'
+import { BsFillPlusCircleFill } from 'react-icons/bs';
+
 
 import './Header.css'
+import { connectMetamask } from "../../utils/connectMetamask";
 function Header() {
-    const { userData, setUserData } = useContext(Context)
+
+    const [address, setAddress] = useState("")
+
+    async function handleConnect(){
+        
+        const connection = await connectMetamask();
+
+        if(connection){
+            setAddress(connection.address);
+        }
+
+
+    }
+
+    function betterAdress(addressStr){
+        return addressStr.substr(0, 6) + "..." + addressStr.substr(addressStr.length - 4, addressStr.length);
+    }
 
     return (
         <Navbar collapseOnSelect bg="light" variant="light">
             <div className="container">
                 <Navbar.Brand>
-                    <NavLink className="navbar-brand" to="/">All for you...</NavLink>
+                    <NavLink className="navbar-brand" to="/">social swap</NavLink>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
-                        {/* <Nav.Link href="#features">Features</Nav.Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link> */}
+                <Navbar.Collapse id="responsive-navbar-nav">                    
+                    <Nav>
+                        <NavLink className="nav-item" id="addButton" to="/add-product">
+                            <OverlayTrigger key="bottom" placement="bottom"
+                                overlay={
+                                    <Tooltip id={`tooltip-bottom`}>
+                                        <strong>Add</strong>  a sell.
+                                    </Tooltip>
+                                }
+                            > 
+                                <BsFillPlusCircleFill />
+                            </OverlayTrigger>
+                        </NavLink>
                     </Nav>
-                    {userData ?
+                    <Button variant="light" id="wallet" onClick={handleConnect}>
+                        {address == "" ? "Conecte sua carteira": betterAdress(address)}
+                    </Button>
+                    {/* {userData ?
                         (<Nav>
                             <NavLink className="nav-item" id="addButton" to="/add-product">
                                 <OverlayTrigger key="bottom" placement="bottom"
@@ -40,17 +68,17 @@ function Header() {
                                     <BsFillPersonFill />Profile
                                 </NavLink>
 
-                                {/* <NavDropdown.Divider /> */}
+                                {/* <NavDropdown.Divider /> 
 
-                                {/* <NavLink className="dropdown-item" to="/your-sells">
+                                <NavLink className="dropdown-item" to="/your-sells">
                                     <BsFillGridFill />Sells
-                            </NavLink> */}
+                            </NavLink>
                                 <NavLink className="dropdown-item" to="/messages">
                                     <BsFillEnvelopeFill />Messages
                             </NavLink>
                                 {/* <NavLink className="dropdown-item" to="/wishlist">
                                     <BsFillHeartFill />Wishlist
-                            </NavLink> */}
+                            </NavLink> 
 
                                 <NavDropdown.Divider />
 
@@ -68,9 +96,9 @@ function Header() {
                             </NavLink>
                             <NavLink className="nav-item" id="nav-sign-up" to="/auth/register">
                                 Sign Up
-                            </NavLink>
-                        </Nav>)
-                    }
+                            </NavLink> 
+                        </Nav>) 
+                    } */}
                 </Navbar.Collapse>
             </div>
         </Navbar>

@@ -22,12 +22,13 @@ contract CreditTokens is ERC1155, ERC1155Supply, Ownable {
 
     constructor() ERC1155("Carbon CreditTokens") {}
 
-    function createToken(string memory name, address tokenOwner) public onlyOwner returns (uint) {
-        tokenCount++;
+    function createToken(string memory name, uint quantity) public returns (uint) {
+        tokenCount = tokenCount + 1;
         tokenNames[tokenCount] = name;
-        tokenOwners[tokenCount] = tokenOwner;
+        tokenOwners[tokenCount] = msg.sender;
 
-        emit TokenCreated(tokenCount, name, tokenOwner);
+        emit TokenCreated(tokenCount, name, msg.sender);
+        _mint(msg.sender, tokenCount, quantity, "");
         return tokenCount;
     }
 
