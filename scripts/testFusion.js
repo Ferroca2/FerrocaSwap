@@ -51,7 +51,10 @@ async function test2(){
 
     const nodeUrl = `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_KEY}`;
 
-    const provider = new ethers.providers.JsonRpcProvider(nodeUrl);
+    const provider = new ethers.providers.PrivateKeyProviderConnector(
+        makerPrivateKey,
+        nodeUrl
+    );
 
     console.log(provider    )
 
