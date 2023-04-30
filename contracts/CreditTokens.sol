@@ -39,7 +39,8 @@ contract CreditTokens is ERC1155, ERC1155Supply, Ownable {
         currencyToken = IERC20(_currencyToken);
     }
 
-    function setTokenPRice(uint tokenId, uint price) public onlyOwner {
+    function setTokenPRice(uint tokenId, uint price) public {
+        require(tokenOwners[tokenId] == msg.sender, "Only token owner can set price");
         tokenPrices[tokenId] = price;
     }
 
